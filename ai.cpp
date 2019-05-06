@@ -9,14 +9,19 @@ int countForWhile = 0;
 float score[N][N] = {0};
 void rule(char arr[][N], char i, char j);
 
-struct Node{
-	int data;
-	Node *next;
-};
-
-class Tree{
-	
-};
+struct Node 
+{ 
+    int key; 
+    vector<Node *>child; 
+}; 
+   
+ // Utility function to create a new tree node 
+Node *newNode(int key) 
+{ 
+    Node *temp = new Node; 
+    temp->key = key; 
+    return temp; 
+} 
 
 int main(){
 	fstream file;
