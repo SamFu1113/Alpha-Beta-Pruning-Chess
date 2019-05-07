@@ -6,7 +6,7 @@
 using namespace std;
 
 int countForWhile = 0;
-float score[N][N] = {0};
+int score[N][N] = {0};
 void rule(char arr[][N], char i, char j);
 
 struct Node 
