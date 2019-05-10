@@ -12,6 +12,7 @@ int countForWhile = 0;
 char buffer[N][N] = {0};
 int score[N][N] = {0};
 
+
 void rule(char arr[][N], char i, char j);
 int caculate(char arr[][N], char i, char j, bool side);
 void chooseSide(bool side);
