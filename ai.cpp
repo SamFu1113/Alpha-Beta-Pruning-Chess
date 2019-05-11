@@ -12,11 +12,12 @@ int countForWhile = 0;
 char buffer[N][N] = {0};
 int score[N][N] = {0};
 
-
-void rule(char arr[][N], char i, char j);
-int caculate(char arr[][N], char i, char j, bool side);
-void chooseSide(bool side);
+void rule(char arr[][N]);
+int caculate(char arr[][N], bool side);
+int chooseSide(bool side, char times);
 void takeAction(bool side, int times);
+void printBuffer();
+
 
 struct Node { 
     int key; 
@@ -33,13 +34,7 @@ Node *newNode(int key) {
 void LevelOrderTraversal(Node * root);
 
 void print_Buffer(){
-	for(int i = 0; i < N; i++){
-		for(int k = 0; k< N; k++){
-			 rule(buffer,i,k);
-			 
-		}
-		
-	}
+	rule(buffer);
 }
 
 void printScore(bool team){
@@ -74,13 +69,7 @@ void initial(){
 	print_Buffer();
 	
 	cout<< endl;
-	for(int i = 0; i < N; i++){
-		for(int k = 0; k< N; k++){
-			 rule(buffer,i,k);
-			 
-		}
-		
-	}
+			 rule(buffer);
 }
 
 void createNode(){
@@ -105,20 +94,239 @@ int chooseTeam(){
 	cin >> team;
 	if(team){
 		cout << " 你為ABC ! "<< endl << endl;
-		chooseSide(team);
 		//takeAction(team)*2;
 		
 	}
 	else{
 		cout << " 你為XYZ ! "<< endl << endl;
-		chooseSide(team);
 		//takeAction();
 	}
 	return team;
 }
 
+void autoplay(bool side, int times){
+	cout << endl << endl << " 目前整體評分為 : ";
+    cout << caculate(buffer, side) << endl;
+	int u=6;
+	while(u--){int k=6;while(k--)score[u][k]=0;}
+	
+	rule(buffer);
+	
+	printScore(side*(-1)); //判斷每一次主動方的分數 
+	int rowOfMe,columnOfMe,rowOfNext,columnOfNext;
+	cout << " Autoplay..... " << endl;
+	int changed=0;
+	for(int i = 1; i < N-1; i++){
+		if(changed==1)break;
+		for(int j=1; j<N-1; j++){
+			if(side){
+				if(buffer[i][j]=='A'||buffer[i][j]=='B'||buffer[i][j]=='C'){
+					int ti[4]={i, i, i+1, i-1};
+					int tj[4]={j+1, j-1, j, j};
+					for(int k=0;k<4;k++){
+						if(changed==1)break; 
+					if(buffer[ti[k]][tj[k]]!=0){
+						//A>>XY, B>>YZ, C>>ZX; X>>AB, Y>>BC, Z>>CA
 
+						switch(buffer[i][j]){
+			case 'A': 
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Y'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+					}
+					break;
+			case 'B':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'Z' || buffer[ti[l]][tj[l]] == 'Y'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+			case 'C':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Z'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+			case 'X':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'B'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+			case 'Y':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'B' || buffer[ti[l]][tj[l]] == 'C'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+			case 'Z':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'C'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+					}
+				 }
+					}
+					}
+				}
+			else{
+				if(buffer[i][j]=='X'||buffer[i][j]=='Y'||buffer[i][j]=='Z'){
+						
+					int ti[4]={i+1, i-1, i, i};
+					int tj[4]={j, j, j+1, j-1};
+					for(int k=0;k<4;k++){
+					if(buffer[ti[k]][tj[k]]!=0){
+						//A>>XY, B>>YZ, C>>ZX; X>>AB, Y>>BC, Z>>CA
 
+						switch(buffer[i][j]){
+			case 'A': 
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Y'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+					}
+					break;
+			case 'B':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'Z' || buffer[ti[l]][tj[l]] == 'Y'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+			case 'C':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Z'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+			case 'X':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'B'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+			case 'Y':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'B' || buffer[ti[l]][tj[l]] == 'C'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+			case 'Z':
+					for(int l=0;l<4;l++){
+						if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'C'){
+							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+							buffer[i][j]='+'; 
+							changed=1;
+							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+							break;
+						}
+				}
+					break;
+					}
+					}
+					}
+				}
+				
+			}
+			
+			}
+		}
+	if(changed==0){
+		for(int i=1;i<5;i++){
+			if(changed==1)break;
+			for(int j=1;j<5;j++){
+				if(changed==1)break;
+		if(side){
+			if(buffer[i][j]=='A'||buffer[i][j]=='B'||buffer[i][j]=='C'){
+			
+					int ti[4]={i, i, i+1, i-1};
+					int tj[4]={j+1, j-1, j, j};
+					for(int k=0;k<4;k++){
+					if(buffer[ti[k]][tj[k]]=='+'){
+						swap(buffer[ti[k]][tj[k]], buffer[i][j]);
+							cout << i << "," << j << "->" << ti[k] << "," << tj[k] << endl;
+							changed=1;
+							break;
+					}
+					}
+			}
+		}
+		else{
+			if(buffer[i][j]=='X'||buffer[i][j]=='Y'||buffer[i][j]=='Z'){
+			
+					int ti[4]={i, i, i+1, i-1};
+					int tj[4]={j+1, j-1, j, j};
+					for(int k=0;k<4;k++){
+					if(buffer[ti[k]][tj[k]]=='+'){
+						swap(buffer[ti[k]][tj[k]], buffer[i][j]);
+							cout << i << "," << j << "->" << ti[k] << "," << tj[k] << endl;
+							changed=1;
+							break;
+					}
+					}
+		}
+			}
+		}}
+	}
+
+	
+	
+
+}
 
 
 int main(){
@@ -127,10 +335,27 @@ int main(){
 	createNode();
     //cout << "Level order traversal Before Mirroring\n"; 
     //LevelOrderTraversal(root); 
-    
+    printBuffer();
     bool team ;
 	team = chooseTeam();
 	//eturn scoreteam;
+	char times = 0;
+	
+	bool side;
+	side = chooseSide(team, times);
+	while(1){
+    if(team){
+	autoplay(side, times);
+	printBuffer();
+	takeAction(side,times);
+	}else{
+	printBuffer();
+	takeAction(side,times);
+	autoplay(side, times);
+	}
+    times++;
+}
+	
                   
 	system("PAUSE");
 	return 0;
@@ -140,32 +365,25 @@ int main(){
 
 
 
-void chooseSide(bool side){
-	char times = 0;
+int chooseSide(bool side, char times){
 	if(side){
-		while(1){
     		if(times %2 ==0){
     			cout << " 現在輪到ABC攻 " << endl << endl;
 			}
 			else cout << " 現在輪到XYZ攻 " << endl << endl;
-			takeAction(side,times);
-    		times++;
 		}
-	}
+	
 	else{
-		while(1){
     		if(times %2 ==1){
     			cout << " 現在輪到ABC攻 " << endl << endl;
 			}
 			else cout << " 現在輪到XYZ攻 " << endl << endl;
-			takeAction(side,times);
-    		times++;
-		}
 		
 	}
+	return side;
 }
 
-void takeAction(bool side, int times){
+void printBuffer(){
 	cout << " 目前棋況為 : " << endl;
 	for(int i = 1; i < N-1; i++){
 		for(int k = 1; k< N-1; k++){
@@ -173,18 +391,17 @@ void takeAction(bool side, int times){
 		}
 		cout << endl;
 	}
+}
+
+void takeAction(bool side, int times){
 	cout << endl << endl << " 目前整體評分為 : ";
-    cout << caculate(buffer, 6, 6 , side) << endl;
+    cout << caculate(buffer, side) << endl;
 	int u=6;
 	while(u--){int k=6;while(k--)score[u][k]=0;}
-		for(int i = 0; i < N; i++){
-			for(int k = 0; k< N; k++){
-			 	rule(buffer,i,k);
-			 
-			}
-		}
 	
-	printScore(side*(times%2)); //判斷每一次主動方的分數 
+	rule(buffer);
+	
+	printScore(side*1); //判斷每一次主動方的分數 
 	int rowOfMe,columnOfMe,rowOfNext,columnOfNext;
 	cout << " 你(對方)想要移動我方第幾列第幾行的棋子 ? 移動到第幾列第幾行 ? " << endl;
 	cin >> rowOfMe >> columnOfMe >> rowOfNext >> columnOfNext;
@@ -193,7 +410,10 @@ void takeAction(bool side, int times){
 	buffer[rowOfMe][columnOfMe]='+';
 } 
 //A>>XY, B>>YZ, C>>ZX; X>>AB, Y>>BC, Z>>CA
-void rule(char arr[][N], char i, char j){  
+void rule(char arr[][N]){  
+
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j< N; j++){
 		switch(arr[i][j]){
 			case 'A': 
 //				do{
@@ -319,6 +539,9 @@ void rule(char arr[][N], char i, char j){
 				break;
 		}
 	
+		}
+		
+	}
 }
 
 void LevelOrderTraversal(Node * root) { 
@@ -350,7 +573,7 @@ void LevelOrderTraversal(Node * root) {
 } 
 
 //map score
-int caculate(char arr[][N], char i, char j, bool side){
+int caculate(char arr[][N], bool side){
 	int a = 0, b = 0, c = 0, x = 0, y = 0, z = 0;
 	for(int i = 1; i < N -1 ;i++){
 		for(int j = 1; j < N -1 ;j++){
