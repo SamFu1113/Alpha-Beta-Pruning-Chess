@@ -124,208 +124,201 @@ void autoplay(bool side, int times){
 					int ti[4]={i, i, i+1, i-1};
 					int tj[4]={j+1, j-1, j, j};
 					for(int k=0;k<4;k++){
-						if(changed==1)break; 
-					if(buffer[ti[k]][tj[k]]!=0){
+						if(changed==1)break; 		
+						if(buffer[ti[k]][tj[k]]!=0){
 						//A>>XY, B>>YZ, C>>ZX; X>>AB, Y>>BC, Z>>CA
-
-						switch(buffer[i][j]){
-			case 'A': 
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Y'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-					}
-					break;
-			case 'B':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'Z' || buffer[ti[l]][tj[l]] == 'Y'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-			case 'C':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Z'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-			case 'X':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'B'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-			case 'Y':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'B' || buffer[ti[l]][tj[l]] == 'C'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-			case 'Z':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'C'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-					}
-				 }
-					}
+							switch(buffer[i][j]){
+								case 'A': 
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Y'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'B':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'Z' || buffer[ti[l]][tj[l]] == 'Y'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'C':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Z'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'X':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'B'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'Y':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'B' || buffer[ti[l]][tj[l]] == 'C'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'Z':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'C'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+							}
+				 		}
 					}
 				}
+			}
 			else{
-				if(buffer[i][j]=='X'||buffer[i][j]=='Y'||buffer[i][j]=='Z'){
-						
+				if(buffer[i][j]=='X'||buffer[i][j]=='Y'||buffer[i][j]=='Z'){	
 					int ti[4]={i+1, i-1, i, i};
 					int tj[4]={j, j, j+1, j-1};
 					for(int k=0;k<4;k++){
-					if(buffer[ti[k]][tj[k]]!=0){
+						if(buffer[ti[k]][tj[k]]!=0){
 						//A>>XY, B>>YZ, C>>ZX; X>>AB, Y>>BC, Z>>CA
 
-						switch(buffer[i][j]){
-			case 'A': 
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Y'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
+							switch(buffer[i][j]){
+								case 'A': 
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Y'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'B':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'Z' || buffer[ti[l]][tj[l]] == 'Y'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'C':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Z'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'X':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'B'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'Y':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'B' || buffer[ti[l]][tj[l]] == 'C'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+								case 'Z':
+									for(int l=0;l<4;l++){
+										if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'C'){
+											swap(buffer[ti[l]][tj[l]],buffer[i][j]);
+											buffer[i][j]='+'; 
+											changed=1;
+											cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
+											break;
+										}
+									}
+								break;
+							}
 						}
 					}
-					break;
-			case 'B':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'Z' || buffer[ti[l]][tj[l]] == 'Y'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-			case 'C':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'X' || buffer[ti[l]][tj[l]] == 'Z'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-			case 'X':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'B'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-			case 'Y':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'B' || buffer[ti[l]][tj[l]] == 'C'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-			case 'Z':
-					for(int l=0;l<4;l++){
-						if(buffer[ti[l]][tj[l]] == 'A' || buffer[ti[l]][tj[l]] == 'C'){
-							swap(buffer[ti[l]][tj[l]],buffer[i][j]);
-							buffer[i][j]='+'; 
-							changed=1;
-							cout << i << "," << j << "->" << ti[l] << "," << tj[l] << endl;
-							break;
-						}
-				}
-					break;
-					}
-					}
-					}
-				}
-				
-			}
-			
-			}
+				}	
+			}	
 		}
+	}
 	if(changed==0){
 		for(int i=1;i<5;i++){
 			if(changed==1)break;
 			for(int j=1;j<5;j++){
 				if(changed==1)break;
-		if(side){
-			if(buffer[i][j]=='A'||buffer[i][j]=='B'||buffer[i][j]=='C'){
+				if(side){
+					if(buffer[i][j]=='A'||buffer[i][j]=='B'||buffer[i][j]=='C'){
 			
-					int ti[4]={i, i, i+1, i-1};
-					int tj[4]={j+1, j-1, j, j};
-					for(int k=0;k<4;k++){
-					if(buffer[ti[k]][tj[k]]=='+'){
-						swap(buffer[ti[k]][tj[k]], buffer[i][j]);
-							cout << i << "," << j << "->" << ti[k] << "," << tj[k] << endl;
-							changed=1;
-							break;
+						int ti[4]={i, i, i+1, i-1};
+						int tj[4]={j+1, j-1, j, j};
+							for(int k=0;k<4;k++){
+								if(buffer[ti[k]][tj[k]]=='+'){
+									swap(buffer[ti[k]][tj[k]], buffer[i][j]);
+									cout << i << "," << j << "->" << ti[k] << "," << tj[k] << endl;
+									changed=1;
+									break;
+								}
+							}
 					}
-					}
-			}
-		}
-		else{
-			if(buffer[i][j]=='X'||buffer[i][j]=='Y'||buffer[i][j]=='Z'){
+				}
+				else{
+					if(buffer[i][j]=='X'||buffer[i][j]=='Y'||buffer[i][j]=='Z'){
 			
-					int ti[4]={i, i, i+1, i-1};
-					int tj[4]={j+1, j-1, j, j};
-					for(int k=0;k<4;k++){
-					if(buffer[ti[k]][tj[k]]=='+'){
-						swap(buffer[ti[k]][tj[k]], buffer[i][j]);
-							cout << i << "," << j << "->" << ti[k] << "," << tj[k] << endl;
-							changed=1;
-							break;
+						int ti[4]={i, i, i+1, i-1};
+						int tj[4]={j+1, j-1, j, j};
+						for(int k=0;k<4;k++){
+							if(buffer[ti[k]][tj[k]]=='+'){
+								swap(buffer[ti[k]][tj[k]], buffer[i][j]);
+								cout << i << "," << j << "->" << ti[k] << "," << tj[k] << endl;
+								changed=1;
+								break;
+							}
+						}
 					}
-					}
-		}
-			}
-		}}
+				}
+			} 
+		}	
 	}
-
-	
-	
-
 }
 
 
@@ -344,19 +337,20 @@ int main(){
 	bool side;
 	side = chooseSide(team, times);
 	while(1){
-    if(team){
-	autoplay(side, times);
-	printBuffer();
-	takeAction(side,times);
-	}else{
-	printBuffer();
-	takeAction(side,times);
-	autoplay(side, times);
+    	if(team){
+			autoplay(side, times);
+			printBuffer();
+			takeAction(side,times);
+		}
+		else{
+			printBuffer();
+			takeAction(side,times);
+			autoplay(side, times);
+		}
+    	times++;
 	}
-    times++;
-}
 	
-                  
+              
 	system("PAUSE");
 	return 0;
 } 
@@ -367,17 +361,17 @@ int main(){
 
 int chooseSide(bool side, char times){
 	if(side){
-    		if(times %2 ==0){
-    			cout << " 現在輪到ABC攻 " << endl << endl;
-			}
-			else cout << " 現在輪到XYZ攻 " << endl << endl;
+    	if(times %2 ==0){
+    		cout << " 現在輪到ABC攻 " << endl << endl;
 		}
+		else cout << " 現在輪到XYZ攻 " << endl << endl;
+	}
 	
 	else{
-    		if(times %2 ==1){
-    			cout << " 現在輪到ABC攻 " << endl << endl;
-			}
-			else cout << " 現在輪到XYZ攻 " << endl << endl;
+    	if(times %2 ==1){
+    		cout << " 現在輪到ABC攻 " << endl << endl;
+		}
+		else cout << " 現在輪到XYZ攻 " << endl << endl;
 		
 	}
 	return side;
