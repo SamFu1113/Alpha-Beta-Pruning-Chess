@@ -1,4 +1,6 @@
 # Alpha-Beta-Pruning-Chess
 
 ## Introduction
-This is a chess board game.
+&nbsp;&nbsp;&nbsp;&nbsp;This is a chess board game. The game consists of two teams.
+
+
